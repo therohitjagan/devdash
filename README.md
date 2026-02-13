@@ -60,6 +60,8 @@ DevDash is now host-compatible as one web service:
 - Root build command: `npm run build`
 - Root start command: `npm start`
 
+If Render shows TypeScript errors like `Cannot find type definition file for 'vite/client'` or `'node'`, ensure build-time dev dependencies are installed. This repo's root `postinstall` handles that automatically.
+
 This works because server production mode serves the built SPA from `client/dist`.
 
 ### Required host env vars

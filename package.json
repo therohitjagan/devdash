@@ -6,7 +6,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "postinstall": "npm install --prefix client && npm install --prefix server",
+    "postinstall": "npm install --include=dev --prefix client && npm install --include=dev --prefix server",
     "build": "npm run build --prefix client && npm run prisma:generate --prefix server && npm run build --prefix server",
     "start": "npm run start --prefix server"
   }
