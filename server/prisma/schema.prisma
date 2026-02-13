@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id          String    @id @default(cuid())
+  githubId    String    @unique
+  username    String
+  avatarUrl   String?
+  createdAt   DateTime  @default(now())
+  snippets    Snippet[]
+  mockApis    MockApi[]
+}
+
+model Snippet {
+  id          String   @id @default(cuid())
+  title       String
+  language    String
+  code        String
+  tags        String[]
+  isFavorite  Boolean  @default(false)
+  shareId     String?  @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model MockApi {
+  id          String   @id @default(cuid())
+  route       String
+  method      String
+  statusCode  Int      @default(200)
+  delayMs     Int      @default(0)
+  response    Json
+  shareId     String?  @unique
+  expiresAt   DateTime?
+  createdAt   DateTime @default(now())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CommitInsight {
+  id          String   @id @default(cuid())
+  repoUrl     String
+  summary     String
+  metrics     Json
+  createdAt   DateTime @default(now())
+}

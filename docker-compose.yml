@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: devdash-postgres
+    environment:
+      POSTGRES_DB: devdash
+      POSTGRES_USER: devdash
+      POSTGRES_PASSWORD: devdash
+    ports:
+      - '5432:5432'
+    volumes:
+      - devdash-postgres-data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: devdash-redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - devdash-redis-data:/data
+
+volumes:
+  devdash-postgres-data:
+  devdash-redis-data:

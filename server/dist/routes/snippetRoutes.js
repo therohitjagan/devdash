@@ -1,0 +1,11 @@
+import { Router } from 'express';
+import { createSnippet, deleteSnippet, getSnippetByShareId, listSnippets, shareSnippet, updateSnippet, } from '../controllers/snippetController.js';
+import { requireAuth } from '../middleware/auth.js';
+export const snippetRoutes = Router();
+snippetRoutes.get('/share/:shareId', getSnippetByShareId);
+snippetRoutes.use(requireAuth);
+snippetRoutes.get('/', listSnippets);
+snippetRoutes.post('/', createSnippet);
+snippetRoutes.patch('/:id', updateSnippet);
+snippetRoutes.delete('/:id', deleteSnippet);
+snippetRoutes.post('/:id/share', shareSnippet);
