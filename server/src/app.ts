@@ -38,7 +38,7 @@ export function createApp() {
   if (shouldServeClient && fs.existsSync(clientDistPath)) {
     app.use(express.static(clientDistPath))
 
-    app.get('*', (req, res, next) => {
+    app.use((req, res, next) => {
       if (req.path.startsWith('/api')) {
         next()
         return
